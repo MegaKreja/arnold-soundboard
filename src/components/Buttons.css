@@ -1,0 +1,18 @@
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding-left: 10px;
+  margin: 0 auto;
+  width: 50%;
+}
+
+.button {
+  width: 80%;
+  border: 3px solid black;
+  margin: 10px;
+  text-align: center;
+}
+
+.button:active {
+  background: red;
+}

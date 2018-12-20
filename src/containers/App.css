@@ -1,0 +1,25 @@
+.soundboard {
+  width: 50%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #393939;
+  color: white;
+  border-radius: 10px;
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 10px;
+}
+
+.display {
+  background-color: #7DBE35;
+  width: 70%;
+  text-align: center;
+  color: #102107;
+  margin: 0 auto;
+}
