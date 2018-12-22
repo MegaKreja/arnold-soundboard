@@ -1,48 +1,76 @@
 import React, { Component } from 'react';
 import Switch from '@material-ui/core/Switch';
 import Buttons from "../components/Buttons";
+import audioQ from "../audio/choirBoy.mp3";
+import audioW from "../audio/cutiePie.mp3";
+import audioE from "../audio/daddy.mp3";
+import audioA from "../audio/discipline.mp3";
+import audioS from "../audio/questions.mp3";
+import audioD from "../audio/sob.mp3";
+import audioZ from "../audio/stopIt.mp3";
+import audioX from "../audio/stopWhining.mp3";
+import audioC from "../audio/wtfWrong.mp3";
 import './App.css';
 
 class App extends Component {
   state = {
     buttons: [
       {
-        id: 0,
-        letter: "q"
+        key: 81,
+        audio: audioQ,
+        letter: "q",
+        active: false
       },
       {
-        id: 1,
-        letter: "w"
+        key: 87,
+        audio: audioW,
+        letter: "w",
+        active: false
       },
       {
-        id: 2,
-        letter: "e"
+        key: 69,
+        audio: audioE,
+        letter: "e",
+        active: false
       },
       {
-        id: 3,
-        letter: "a"
+        key: 65,
+        audio: audioA,
+        letter: "a",
+        active: false
       },
       {
-        id: 4,
-        letter: "s"
+        key: 83,
+        audio: audioS,
+        letter: "s",
+        active: false
       },
       {
-        id: 5,
-        letter: "d"
+        key: 68,
+        audio: audioD,
+        letter: "d",
+        active: false
       },
       {
-        id: 6,
-        letter: "z"
+        key: 90,
+        audio: audioZ,
+        letter: "z",
+        active: false
       },
       {
-        id: 7,
-        letter: "x"
+        key: 88,
+        audio: audioX,
+        letter: "x",
+        active: false
       },
       {
-        id: 8,
-        letter: "c"
+        key: 68,
+        audio: audioC,
+        letter: "c",
+        active: false
       },
     ],
+    currentAudio: null,
     on: true
   }
 
@@ -55,7 +83,34 @@ class App extends Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keydown', this.keyPressHandler);
+    document.removeEventListener('keyup', this.keyPressHandler);
+  }
+
+  playAudio = (index) => {
+    const button = this.state.buttons[index];
+    const audio = new Audio();
+    audio.src = button.audio;
+    // audio.volume = 0.1;
+    audio.play();
+    audio.currentTime = 0;
+  }
+
+  keyPressHandler = (event) => {
+    const buttons = [...this.state.buttons];
+    let index = 0;
+    for (let i = 0; i < buttons.length; i++) {
+      if (event.keyCode === buttons[i].key) {
+        index = i;
+      }
+      buttons[i].active = false;
+    }
+    buttons[index].active = true;
+    this.setState({ buttons });
+    this.playAudio(index);
+    setTimeout(() => {
+      buttons[index].active = false;
+      this.setState({ buttons });
+    }, 100)
   }
 
   onOffHandler = () => {
@@ -65,10 +120,6 @@ class App extends Component {
       }
     });
   };
-
-  keyPressHandler = (event) => {
-    console.log(event.keyCode);
-  }
 
   render() {
     return (
@@ -85,7 +136,7 @@ class App extends Component {
         <div className="display">
           <h1>Welcome</h1>
         </div>
-        <Buttons buttons={this.state.buttons} />
+        <Buttons buttons={this.state.buttons} playAudio={this.playAudio} />
       </ div >
     );
   }
