@@ -16,61 +16,70 @@ class App extends Component {
   state = {
     buttons: [
       {
+        name: "Choir Boy",
         key: 81,
         audio: audioQ,
         letter: "q",
         active: false
       },
       {
+        name: "Hello, cutie pie",
         key: 87,
         audio: audioW,
         letter: "w",
         active: false
       },
       {
+        name: "Who is your daddy",
         key: 69,
         audio: audioE,
         letter: "e",
         active: false
       },
       {
+        name: "You lack discipline",
         key: 65,
         audio: audioA,
         letter: "a",
         active: false
       },
       {
+        name: "Ask bunch of questions",
         key: 83,
         audio: audioS,
         letter: "s",
         active: false
       },
       {
+        name: "Dillon, you son of a bitch",
         key: 68,
         audio: audioD,
         letter: "d",
         active: false
       },
       {
+        name: "Stop it",
         key: 90,
         audio: audioZ,
         letter: "z",
         active: false
       },
       {
+        name: "Stop whinning",
         key: 88,
         audio: audioX,
         letter: "x",
         active: false
       },
       {
-        key: 68,
+        name: "WTF, did I do wrong",
+        key: 67,
         audio: audioC,
         letter: "c",
         active: false
       },
     ],
-    currentAudio: null,
+    currentAudio: "Welcome",
     on: true
   }
 
@@ -88,6 +97,7 @@ class App extends Component {
 
   playAudio = (index) => {
     const button = this.state.buttons[index];
+    this.setState({ currentAudio: button.name });
     const audio = new Audio();
     audio.src = button.audio;
     // audio.volume = 0.1;
@@ -102,21 +112,23 @@ class App extends Component {
       if (event.keyCode === buttons[i].key) {
         index = i;
       }
-      buttons[i].active = false;
     }
-    buttons[index].active = true;
-    this.setState({ buttons });
-    this.playAudio(index);
-    setTimeout(() => {
-      buttons[index].active = false;
+    if (this.state.on) {
+      buttons[index].active = true;
       this.setState({ buttons });
-    }, 100)
+      this.playAudio(index);
+      setTimeout(() => {
+        buttons[index].active = false;
+        this.setState({ buttons });
+      }, 100)
+    }
   }
 
   onOffHandler = () => {
     this.setState((prevState) => {
       return {
-        on: !prevState.on
+        on: !prevState.on,
+        currentAudio: "Welcome"
       }
     });
   };
@@ -127,16 +139,17 @@ class App extends Component {
         <div className="top">
           <p>Arnold Schwarzenegger Soundboard</p>
           <Switch
+            className="switch"
             checked={this.state.on}
             onChange={this.onOffHandler}
             value={this.state.on}
             color="primary"
           />
         </div>
-        <div className="display">
-          <h1>Welcome</h1>
+        <div style={{ "backgroundColor": this.state.on ? "#7DBE35" : "#6d7572" }} className="display">
+          <h2>{this.state.on ? this.state.currentAudio : "---"}</h2>
         </div>
-        <Buttons buttons={this.state.buttons} playAudio={this.playAudio} />
+        <Buttons buttons={this.state.buttons} playAudio={this.playAudio} on={this.state.on} />
       </ div >
     );
   }

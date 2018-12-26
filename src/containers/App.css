@@ -7,6 +7,9 @@
   background-color: #393939;
   color: white;
   border-radius: 10px;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
 }
 
 .top {
@@ -14,12 +17,19 @@
   flex-direction: row;
   justify-content: space-between;
   padding-left: 10px;
+  font-family: 'ZCOOL QingKe HuangYou', cursive;
 }
 
 .display {
-  background-color: #7DBE35;
   width: 70%;
   text-align: center;
   color: #102107;
   margin: 0 auto;
+  font-family: 'Orbitron', sans-serif;
+}
+
+@media only screen and (max-width: 767px) {
+  .top {
+    font-size: 12px;
+  }
 }

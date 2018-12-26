@@ -3,7 +3,7 @@ import "./Buttons.css";
 
 const buttons = (props) => {
   const buttons = props.buttons.map((button, index) => (
-    <div onClick={() => props.playAudio(index)} id={button.active ? "active" : ""} className="button" key={index}>
+    <div onClick={() => props.playAudio(index)} id={button.active ? "active" : ""} className="button orange text-blanco text-shadow-negra" key={index}>
       <p>{button.letter}</p>
     </div>
   ))
